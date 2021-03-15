@@ -12,6 +12,18 @@ const getCode = async () => {
   }
   return result
 }
+const login = async (params) => {
+  let result
+  try {
+    result = await axios.post('/login/login', params)
+    if (result.status === 200) {
+      return result.data
+    }
+  } catch (e) {
+    console.log(e)
+  }
+  return result
+}
 
 const sendMail = async (params) => {
   let result
@@ -28,5 +40,6 @@ const sendMail = async (params) => {
 
 export {
   getCode,
-  sendMail
+  sendMail,
+  login
 }
