@@ -1,32 +1,14 @@
-import axios from '@/utils/axios.js'
+import axios from '@/utils/request.js'
 
 const getCode = async () => {
-  return axios.get('/public/getCaptcha123')
+  return axios.get('/public/getCaptcha')
 }
 const login = async (params) => {
-  let result
-  try {
-    result = await axios.post('/login/login', params)
-    if (result.status === 200) {
-      return result.data
-    }
-  } catch (e) {
-    console.log(e)
-  }
-  return result
+  return axios.post('/login/login', params)
 }
 
 const sendMail = async (params) => {
-  let result
-  try {
-    result = await axios.post('/loginController', params)
-    if (result.status === 200) {
-      return result.data
-    }
-  } catch (e) {
-    console.log(e)
-  }
-  return result
+  return axios.post('/loginController', params)
 }
 
 export {
