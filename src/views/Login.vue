@@ -14,7 +14,7 @@
             <div method="post" action="">
               <div class="layui-form-item">
                 <label for="L_email" class="layui-form-label">用户名</label>
-                <ValidationProvider name="用户名" rules="required|email" v-slot="{errors}">
+                <ValidationProvider name="email" rules="required|email" v-slot="{errors}">
                   <div class="layui-input-inline">
                     <input type="text" id="L_email" name="username" lay-verify="required" autocomplete="off" class="layui-input" v-model="username">
                   </div>
@@ -25,7 +25,7 @@
               </div>
               <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label">密码</label>
-                <ValidationProvider v-slot="{errors}" name="密码" rules="min:6">
+                <ValidationProvider v-slot="{errors}" name="password" rules="min:6">
                   <div class="layui-input-inline">
                     <input type="password" name="password" v-model="password" autocomplete="off" class="layui-input">
                   </div>
@@ -36,7 +36,7 @@
               </div>
               <div class="layui-form-item">
                 <label for="L_vercode" class="layui-form-label">验证码</label>
-                <ValidationProvider v-slot="{errors}" name="验证码" rules="required">
+                <ValidationProvider v-slot="{errors}" name="code" rules="required|length:4">
                   <div class="layui-input-inline">
                     <input type="text" name="code" v-model="code" placeholder="请输入验证码" autocomplete="off" class="layui-input">
                   </div>
@@ -69,14 +69,14 @@
 </template>
 
 <script>
-import { ValidationProvider, extend } from 'vee-validate'
-import * as rules from 'vee-validate/dist/rules'
-import zh from 'vee-validate/dist/locale/zh_CN'
+import { ValidationProvider } from 'vee-validate'
+// import * as rules from 'vee-validate/dist/rules'
+// import zh from 'vee-validate/dist/locale/zh_CN'
 import { getCode, login } from '@/api/login.js'
 // import uuid from 'uuid/v4'
-for (const [key, value] of Object.entries(rules)) {
-  extend(key, { ...value, message: zh.messages[key] })
-}
+// for (const [key, value] of Object.entries(rules)) {
+//   extend(key, { ...value, message: zh.messages[key] })
+// }
 export default {
   name: 'Login',
   data () {
