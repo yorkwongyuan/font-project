@@ -1,7 +1,11 @@
 import axios from '@/utils/request.js'
 
-const getCode = async () => {
-  return axios.get('/public/getCaptcha')
+const getCode = async (sid) => {
+  return axios.get('/public/getCaptcha', {
+    params: {
+      sid
+    }
+  })
 }
 const login = async (params) => {
   return axios.post('/login/login', params)
