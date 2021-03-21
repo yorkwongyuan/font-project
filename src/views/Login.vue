@@ -103,8 +103,14 @@ export default {
         } else {
           this.$alert('错误了')
         }
-      }).catch(e => {
-        this.$alert('错误了')
+      }).catch(err => {
+        const data = err.response.data
+        if (data.code === 500) {
+          this.$alert('用户名账号密码校验失败')
+        } else {
+          this.$alert('服务器错误')
+        }
+        console.log(err.response, 'error')
       })
     },
     // 设置sid

@@ -1,15 +1,28 @@
 <template>
-  <div v-show="isShow" class="alert">
+  <div v-show="isShow" class="alert" @click="closeMask">
     <div class="alert__panel">
       <div class="alert__msg">{{msg}}</div>
-      <button class="alert__btn" @click="isShow = false">确定</button>
+      <div v-if="type === typeConstant.ALERT">
+        <button class="alert__btn" @click="close">确定</button>
+      </div>
+      <div v-else class="alert__footer">
+        <button class="alert__btn cancel" @click="cancelEvent">取消</button>
+        <button class="alert__btn success" @click="confirmEvent">确定</button>
+      </div>
     </div>
     <div class="mask"></div>
   </div>
 </template>
 <script>
+const typeConstant = {
+  ALERT: 'alert',
+  CONFIRM: 'confirm'
+}
 export default {
   data () {
+    return {
+      typeConstant
+    }
   },
   props: {
     isShow: {
@@ -19,6 +32,36 @@ export default {
     msg: {
       type: String,
       default: ''
+    },
+    type: {
+      type: String,
+      default: 'alert' // alert | confirm
+    },
+    cancel: {
+      type: Function,
+      default: () => { console.log('this is cancel') }
+    },
+    confirm: {
+      type: Function,
+      default: () => { console.log('this is confirm') }
+    }
+  },
+  methods: {
+    close () {
+      this.isShow = false
+    },
+    closeMask () {
+      if (this.type === typeConstant.ALERT) {
+        this.close()
+      }
+    },
+    cancelEvent () {
+      this.cancel()
+      this.close()
+    },
+    confirmEvent () {
+      this.confirm()
+      this.close()
     }
   }
 }
@@ -48,6 +91,17 @@ $--color-hover: darken($--color-primary, 5%);
       flex: 1;
       justify-content: center;
       align-items: center;
+    }
+    .alert__footer {
+      display: flex;
+      .cancel {
+        background-color: #ededed;
+        color: #333;
+        margin-right: 4px;
+        &:hover {
+          background-color: darken(#ededed, 5%)
+        }
+      }
     }
   }
   .alert__btn {
