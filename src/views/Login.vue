@@ -1,5 +1,6 @@
 <template>
   <div class="layui-container fly-marginTop login">
+  <!-- <Alert msg="好了别扯了" :isShow="true"></Alert> -->
   <div class="fly-panel fly-panel-user" pad20>
     <div class="layui-tab layui-tab-brief" lay-filter="user">
       <ul class="layui-tab-title">
@@ -72,8 +73,6 @@
 
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
-// import * as rules from 'vee-validate/dist/rules'
-// import zh from 'vee-validate/dist/locale/zh_CN'
 import { getCode, login } from '@/api/login.js'
 import uuid from 'uuid/v4'
 export default {
@@ -101,9 +100,12 @@ export default {
       login({ username: this.username, password: this.password, sid: this.sid, code: this.code }).then(res => {
         if (res.code === 200) {
           console.log('登录成功')
+        } else {
+          this.$alert('错误了')
         }
+      }).catch(e => {
+        this.$alert('错误了')
       })
-      console.log(this.uuid, 'uuid')
     },
     // 设置sid
     setSid () {
@@ -123,6 +125,7 @@ export default {
     ValidationObserver
   },
   mounted () {
+    window.vue = this // 通过这种方式来调试
     this.setSid()
     this._getCode()
   }
