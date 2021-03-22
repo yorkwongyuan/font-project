@@ -12,7 +12,7 @@
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
         <div class="layui-tab-item layui-show">
           <div class="layui-form layui-form-pane">
-            <ValidationObserver v-slot="{ validate }" ref="form">
+            <ValidationObserver v-slot="{ validate }" ref="observer">
               <div method="post" action="">
                 <div class="layui-form-item">
                   <label for="L_email" class="layui-form-label">用户名</label>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="layui-form-item">
                   <label for="L_vercode" class="layui-form-label">验证码</label>
-                  <ValidationProvider v-slot="{errors}" name="code" rules="required|length:4">
+                  <ValidationProvider v-slot="{errors}" name="code" rules="required|length:4" ref="codeField">
                     <div class="layui-input-inline">
                       <input type="text" name="code" v-model="code" placeholder="请输入验证码" autocomplete="off" class="layui-input">
                     </div>
@@ -95,11 +95,19 @@ export default {
       })
     },
     async _login () {
-      const isValid = await this.$refs.form.validate()
+      const isValid = await this.$refs.observer.validate()
       if (!isValid) return
       login({ username: this.username, password: this.password, sid: this.sid, code: this.code }).then(res => {
         if (res.code === 200) {
           console.log('登录成功')
+          this.username = ''
+          this.password = ''
+          this.code = ''
+          requestAnimationFrame(() => {
+            this.$refs.observer.reset()
+          })
+        } else if (res.code === 401) {
+          this.$refs.codeField.setErrors([res.msg])
         } else {
           this.$alert('错误了')
         }
