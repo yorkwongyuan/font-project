@@ -15,8 +15,13 @@ const sendMail = async (params) => {
   return axios.post('/loginController', params)
 }
 
+const register = async (params) => {
+  return axios.post('/login/register', params)
+}
+
 export {
   getCode,
   sendMail,
-  login
+  login,
+  register
 }

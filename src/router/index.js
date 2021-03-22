@@ -14,7 +14,14 @@ const routes = [
   {
     path: '/reg',
     name: 'Reg',
-    component: Reg
+    component: Reg,
+    beforeEnter: (to, from, next) => {
+      if (from.path === '/login') {
+        next()
+      } else {
+        next('/login')
+      }
+    }
   },
   {
     path: '/forget',
