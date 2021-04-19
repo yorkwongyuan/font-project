@@ -10,7 +10,9 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint'
   },
+  plugins: ['wylint'],
   rules: {
+    'wylint/settimeout-no-time': 'error',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
