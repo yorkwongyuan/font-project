@@ -74,7 +74,7 @@
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { getCode, login } from '@/api/login.js'
-import uuid from 'uuid/v4'
+// import uuid from 'uuid/v4'
 export default {
   name: 'Login',
   data () {
@@ -127,7 +127,7 @@ export default {
       if (localStorage.getItem('sid')) {
         sid = localStorage.getItem('sid')
       } else {
-        sid = uuid()
+        // sid = uuid()
         sid = localStorage.setItem('sid', sid)
       }
       this.$store.commit('setSid', sid)
