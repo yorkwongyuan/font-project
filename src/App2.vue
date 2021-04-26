@@ -62,7 +62,6 @@ export default {
       axios.get('http://localhost:3000/getCaptcha').then(res => {
         if (res.status === 200) {
           this.svg = res.data.message
-          console.log('getCaptcha -> this.svg', this.svg)
         }
       })
     },
