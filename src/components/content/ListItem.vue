@@ -14,7 +14,7 @@
             <cite>{{item.uid.name}}</cite>
             <i class="layui-badge fly-badge-vip" v-if="item.uid.isVip !== '0'">{{ 'VIP' + item.uid.isVip }}</i>
           </a>
-          <span>{{item.created}}</span>
+          <span>{{item.created | moment}}</span>
           <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻">
             <i class="iconfont icon-kiss"></i>
             {{item.fav}}
@@ -34,21 +34,50 @@
         </div>
       </li>
     </ul>
-    <div style="text-align: center">
-      <div class="laypage-main">
+    <div style="text-align: center" v-show="isShowBottom">
+      <div class="laypage-main" v-if="!isEnd">
         <a href="" class="laypage-next" @click.prevent="more()">更多求解</a>
+      </div>
+      <div v-else class="nomore gray">
+        没有更多了
       </div>
     </div>
   </div>
 </template>
 <script>
 import _ from 'lodash'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
 export default {
   name: 'list-item',
-  props: ['lists'],
+  props: {
+    lists: {
+      default: () => [],
+      type: Array
+    },
+    isShowBottom: {
+      type: Boolean,
+      default: true
+    },
+    isEnd: {
+      type: Boolean,
+      default: true
+    }
+  },
   methods: {
     more () {
       this.$emit('nextPage')
+    }
+  },
+  filters: {
+    moment (date) {
+      // 超过7天，显示日期
+      if (moment(date).isBefore(moment().subtract(7, 'days'))) {
+        return moment(date).format('YYYY-MM-DD')
+      } else {
+        // 一小时前，xx小时前，xx天前
+        return moment(date).from(moment())
+      }
     }
   },
   computed: {
@@ -81,5 +110,8 @@ export default {
 }
 </script>
 <style lang="scss">
-
+.nomore {
+  padding: 30px 0;
+  font-size: 16px;
+}
 </style>

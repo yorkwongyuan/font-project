@@ -6,13 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "npm run serve"
+    "start": "npm run serve",
+    "mock": "node net.js http://106.55.51.93:10400/mock/6089582a1b29f5000b4aeafa http://localhost:3000"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
+    "moment": "^2.29.1",
     "qs": "^6.10.1",
     "register-service-worker": "^1.7.1",
     "uuid": "^8.3.2",

@@ -100,14 +100,14 @@ function mock(req, res) {
     headers: getHeader(req),
     port: obj.port ? obj.port : 80,
   }
-  console.log("初次请求：method:" + opt.method + "host:" + opt.host + "port:" + opt.port + "path:" + opt.path)
+  console.log("鍒濇璇锋眰锛歮ethod:" + opt.method + "host:" + opt.host + "port:" + opt.port + "path:" + opt.path)
   if (opt.headers["content-length"]) {
     delete opt.headers["content-length"]
   }
   var tmp = url.parse(realUrl).protocol == "http:" ? http : https;
   var req2 = tmp.request(opt, function(res2) {
     if (!realUrl || res2.headers["finish-doclever"] == "0") {
-      console.log("接口开发中，返回mock数据");
+      console.log("鎺ュ彛寮€鍙戜腑锛岃繑鍥瀖ock鏁版嵁");
       res.writeHead(res2.statusCode, filterResHeader(res2.headers, res));
       res2.pipe(res);
       res2.on('end', function() {
@@ -115,9 +115,9 @@ function mock(req, res) {
       });
     } else {
       if (res2.headers["finish-doclever"] == "1") {
-        console.log("接口已完成，调用真实接口");
+        console.log("鎺ュ彛宸插畬鎴愶紝璋冪敤鐪熷疄鎺ュ彛");
       } else {
-        console.log("接口或者项目未找到，转调真实接口");
+        console.log("鎺ュ彛鎴栬€呴」鐩湭鎵惧埌锛岃浆璋冪湡瀹炴帴鍙�");
       }
       var headers = getHeader(req);
       var objUrl = url.parse(realUrl);
@@ -143,9 +143,9 @@ function mock(req, res) {
         }
         request1 = https.request;
       }
-      console.log("调用真实接口：method:" + opt1.method + "host:" + opt1.host + "port:" + opt1.port + "path:" + opt1.path)
+      console.log("璋冪敤鐪熷疄鎺ュ彛锛歮ethod:" + opt1.method + "host:" + opt1.host + "port:" + opt1.port + "path:" + opt1.path)
       var req3 = request1(opt1, function(res3) {
-        console.log("真实接口调用完成。status:" + res3.statusCode)
+        console.log("鐪熷疄鎺ュ彛璋冪敤瀹屾垚銆俿tatus:" + res3.statusCode)
         res.writeHead(res3.statusCode, filterResHeader(res3.headers, res));
         res3.pipe(res);
         res3.on('end', function() {
@@ -319,4 +319,4 @@ var realUrl = arguments[1];
 var port = arguments[2] ? arguments[2] : 36742;
 var server = http.createServer(onProxy);
 server.listen(port);
-console.log(arguments.length > 0 ? ("内网测试，Mock数据正监听端口：" + port) : "正在运行中，请用DOClever的接口测试页面进行内网测试！");
+console.log(arguments.length > 0 ? ("鍐呯綉娴嬭瘯锛孧ock鏁版嵁姝ｇ洃鍚鍙ｏ細" + port) : "姝ｅ湪杩愯涓紝璇风敤DOClever鐨勬帴鍙ｆ祴璇曢〉闈㈣繘琛屽唴缃戞祴璇曪紒");

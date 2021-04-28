@@ -15,7 +15,7 @@
           <a :class="{'layui-this': sort === 'answer'}" @click.prevent="search(5)">按热议</a>
         </span>
       </div>
-      <list-item :lists="lists" @nextPage="nextPage"/>
+      <list-item :lists="lists" @nextPage="nextPage" :isEnd="isEnd"/>
     </div>
   </div>
 </template>
@@ -31,30 +31,76 @@ export default {
       sort: 'answer',
       page: 0,
       limit: 20,
-      catalog: '',
-      lists: []
+      catalog: 'index',
+      lists: [],
+      isEnd: false,
+      isLoading: false
     }
   },
   mounted () {
+    // let mock = {
+    //   "code":"200",
+    //   "msg": "mock",
+    //   "data": [{
+    //     "uid": {
+    //       "name": "wyuan",
+    //       "isVip": "1"
+    //     },
+    //     "title": "大前端课程",
+    //     "content": "",
+    //     "created": "2021-4-25 01:00:00",
+    //     "catalog": "ask",
+    //     "fav": "40",
+    //     "isEnd": "0",
+    //     "reads": "10",
+    //     "answer": "0",
+    //     "status": "0",
+    //     "isTop": "0",
+    //     "tags": [
+    //       { "name": "精华", "class": "layui-bg-red" },
+    //       { "name": "热门", "class": "layui-bg-blue" }
+    //     ]
+    //   }]
+    // }
     this._getLists()
   },
   methods: {
     nextPage () {
       this.page++
+      if (this.isEnd) return
       this._getLists()
     },
     _getLists () {
+      if (this.isLoading) return
       const options = {
         catalog: this.catalog,
         isTop: 0,
-        page: 0,
+        page: this.page,
         limit: this.limit,
         sort: this.sort,
         tag: this.tag,
         status: this.status
       }
+      this.isLoading = true
       getLists(options).then(res => {
+        this.isLoading = false
         console.log('_getLists -> res', res)
+        // 如果返回数小于规定的数量，则不执行
+        if (res.data.length < this.limit) {
+          this.isEnd = true
+        }
+        // 如果数据为空则直接赋值,否则合并
+        // 错误提示
+        if (this.lists.length === 0) {
+          this.lists = res.data
+        } else {
+          this.lists = this.lists.concat(res.data)
+        }
+      }).catch(error => {
+        if (error) {
+          this.isLoading = false
+          this.$alert(error.msg)
+        }
       })
     },
     search (val) {
