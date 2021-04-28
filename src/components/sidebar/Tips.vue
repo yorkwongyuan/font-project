@@ -3,25 +3,30 @@
     <h3 class="fly-panel-title">温馨通道</h3>
     <div class="fly-panel-main">
       <ul class="layui-clear wyuan-quick">
-        <li class="layui-col-xs6">
-          <a href="/jie/4281/" target="_blank">wyuan</a>
-        </li>
-        <li class="layui-col-xs6">
-          <a href="/jie/4281/" target="_blank">wyuan</a>
-        </li>
-        <li class="layui-col-xs6">
-          <a href="/jie/4281/" target="_blank">wyuan</a>
-        </li>
-        <li class="layui-col-xs6">
-          <a href="/jie/4281/" target="_blank">wyuan</a>
+        <li class="layui-col-xs6" v-for="(item, index) in lists" :key="index">
+          <a href="/jie/4281/" target="_blank">{{item.title}}</a>
         </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import { getTips } from '@/api/content'
 export default {
-  name: 'Tips'
+  name: 'Tips',
+  data () {
+    return {
+      lists: []
+    }
+  },
+  mounted () {
+    getTips().then(res => {
+      if (res.code === 200) {
+        this.lists = res.data
+      }
+      console.log('mounted -> res', res)
+    })
+  }
 }
 </script>
 <style lang="scss">

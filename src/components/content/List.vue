@@ -28,13 +28,14 @@ export default {
     return {
       status: '',
       tag: '',
-      sort: 'answer',
+      sort: 'created',
       page: 0,
       limit: 20,
       catalog: 'index',
       lists: [],
       isEnd: false,
-      isLoading: false
+      isLoading: false,
+      current: '' // 当前的tab
     }
   },
   mounted () {
@@ -62,9 +63,37 @@ export default {
     //     ]
     //   }]
     // }
+    const catalog = this.$route.params.catalog
+    if (typeof catalog !== 'undefined' && catalog !== '') {
+      console.log('mounted -> catalog', catalog)
+      this.catalog = catalog
+    }
     this._getLists()
   },
+  watch: {
+    current (newVal, oldVal) {
+      console.log('current -> oldVal', oldVal)
+      console.log('current -> newVal', newVal)
+      if (newVal !== oldVal) {
+        this.init()
+      }
+    },
+    '$route' (newVal, oldVal) {
+      const catalog = this.$route.params.catalog
+      if (typeof catalog !== 'undefined' && catalog !== '') {
+        console.log('catalog', catalog)
+        this.catalog = catalog
+      }
+      this.init()
+    }
+  },
   methods: {
+    init () {
+      this.lists = []
+      this.page = 0
+      this.isEnd = false
+      this._getLists()
+    },
     nextPage () {
       this.page++
       if (this.isEnd) return
@@ -104,6 +133,9 @@ export default {
       })
     },
     search (val) {
+      if (this.current === val) return
+      this.current = val
+      console.log('search -> val', val)
       switch (val) {
         case 0:
           this.status = ''

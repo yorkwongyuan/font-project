@@ -1,9 +1,10 @@
 import axios from 'axios'
 import errorHandler from './errorHandler'
-
+const CancelToken = axios.CancelToken
 class HttpRequest {
   constructor (baseURL) {
     this.baseURL = baseURL
+    this.pendding = {}
   }
 
   // 获取axios配置
@@ -18,10 +19,26 @@ class HttpRequest {
     return config
   }
 
+  // 移除请求
+  removePendding (key, isRepeat = false) {
+    if (this.pendding[key] && isRepeat) {
+      // console.log('HttpRequest -> removePendding -> this.pendding[key] && isRepeat', this.pendding[key] && isRepeat)
+      this.pendding[key]('取消重复请求')
+    }
+    delete this.pendding[key]
+  }
+
   // 拦截器
   interceptors (instance) {
     // 请求拦截器
     instance.interceptors.request.use((config) => {
+      const key = config.url + '&' + config.method
+      // console.log('HttpRequest -> interceptors -> key', key)
+      this.removePendding(key, true)
+      config.cancelToken = new CancelToken((c) => {
+        this.pendding[key] = c
+        // console.log('HttpRequest -> interceptors -> c', c)
+      })
       return config
     }, (error) => {
       errorHandler(error)
@@ -29,6 +46,8 @@ class HttpRequest {
     })
     // 响应拦截器
     instance.interceptors.response.use((res) => {
+      const key = res.config.url + '&' + res.config.method
+      this.removePendding(key)
       if (res.status === 200) {
         return Promise.resolve(res.data)
       } else {
