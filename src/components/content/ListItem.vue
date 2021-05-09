@@ -3,7 +3,7 @@
     <ul class="fly-list">
       <li v-for="(item, index) in items" :key="'items' + index">
         <a href="user/home.html" class="fly-avatar">
-          <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+          <img :src="baseUrl + item.uid.pic" alt="贤心">
         </a>
         <h2>
           <a class="layui-badge">{{item.catalog}}</a>
@@ -19,7 +19,7 @@
             <i class="iconfont icon-kiss"></i>
             {{item.fav}}
           </span>
-          <span class="layui-badge fly-badge-accept layui-hide-xs" v-show="item.status !== 0">
+          <span class="layui-badge fly-badge-accept layui-hide-xs" v-show="item.status !== '0'">
             已结
           </span>
           <span class="fly-list-nums">
@@ -29,7 +29,7 @@
         </div>
         <div class="fly-list-badge" v-show="item.tags.length > 0">
           <span class="layui-badge" :class="tag.class" v-for="(tag, index) in item.tags" :key="'tag' + index">
-            {{tag.name}}
+            {{tag}}
           </span>
         </div>
       </li>
@@ -48,8 +48,15 @@
 import _ from 'lodash'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+import config from '@/config/index.js'
+console.log('config', config)
 export default {
   name: 'list-item',
+  data () {
+    return {
+      baseUrl: process.env.NODE_ENV === 'production' ? config.baseURL.prod : config.baseURL.dev
+    }
+  },
   props: {
     lists: {
       default: () => [],
@@ -84,6 +91,9 @@ export default {
     items () {
       _.map(this.lists, (item) => {
         switch (item.catalog) {
+          case 'index':
+            item.catalog = '全部'
+            break
           case 'ask':
             item.catalog = '提问'
             break

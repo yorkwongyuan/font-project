@@ -26,7 +26,7 @@ export default {
   name: 'List',
   data () {
     return {
-      status: '',
+      status: '0',
       tag: '',
       sort: 'created',
       page: 0,
@@ -138,6 +138,7 @@ export default {
       console.log('search -> val', val)
       switch (val) {
         case 0:
+          this.catalog = ''
           this.status = ''
           this.tag = ''
           break
