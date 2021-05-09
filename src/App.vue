@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click="req">发送请求</button>
     <Header/>
     <router-view></router-view>
     <Footer></Footer>
@@ -10,7 +9,7 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import Mock from 'mockjs'
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: 'app',
   components: {
@@ -18,11 +17,6 @@ export default {
     Header
   },
   methods: {
-    req () {
-      axios.get('http://wy.mayfollower.com/getdata').then(res => {
-        console.log(JSON.stringify(res.data, null, 2))
-      })
-    }
   },
   mounted () {
     const obj = { a: 1, b: 'haha', c: 'hehe' }

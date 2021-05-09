@@ -18,7 +18,7 @@ const getTips = async (options) => {
 }
 
 /**
- * 友情链接和温馨提醒接口
+ * 友情链接接口
  * @param {Object} options 获取友情链接和温馨提醒接口的参数
  */
 const getLinks = async () => {

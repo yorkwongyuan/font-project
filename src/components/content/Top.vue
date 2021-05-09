@@ -11,31 +11,32 @@
 </template>
 <script>
 import listItem from './ListItem'
+import { getLists } from '@/api/content'
 export default {
   name: 'Top',
   data () {
     return {
-      lists: [{
-        uid: {
-          name: 'wyuan',
-          isVip: 1
-        },
-        title: '大前端课程',
-        content: '',
-        created: '2021-4-25 01:00:00',
-        catalog: 'ask',
-        fav: 40,
-        isEnd: 0,
-        reads: 10,
-        answer: 0,
-        status: 0,
-        isTop: 0,
-        tags: [
-          { name: '精华', class: 'layui-bg-red' },
-          { name: '热门', class: 'layui-bg-blue' }
-        ]
-      }]
+      lists: []
     }
+  },
+  methods: {
+    _getLists () {
+      const options = {
+        isTop: 1,
+        limit: 10
+      }
+      getLists(options).then(res => {
+        this.lists = res.data
+        console.log('_getLists111 -> this.lists', this.lists)
+      }).catch(error => {
+        if (error) {
+          this.$alert(error.msg)
+        }
+      })
+    }
+  },
+  mounted () {
+    this._getLists()
   },
   components: {
     listItem

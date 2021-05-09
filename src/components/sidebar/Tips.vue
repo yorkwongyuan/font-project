@@ -4,7 +4,7 @@
     <div class="fly-panel-main">
       <ul class="layui-clear wyuan-quick">
         <li class="layui-col-xs6" v-for="(item, index) in lists" :key="index">
-          <a href="/jie/4281/" target="_blank">{{item.title}}</a>
+          <a :href="item.link" target="_blank">{{item.title}}</a>
         </li>
       </ul>
     </div>
