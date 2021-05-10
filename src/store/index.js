@@ -6,15 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     sid: '',
-    isLogin: false
+    isLogin: false,
+    userInfo: null
   },
   mutations: {
     setSid (state, sid) {
       state.sid = sid
+    },
+    setUserInfo (state, userInfo) {
+      state.userInfo = userInfo
     }
   },
   actions: {
   },
-  modules: {
-  }
+  modules: {}
 })

@@ -6,7 +6,7 @@
       <ul class="layui-tab-title">
         <li class="layui-this">登录</li>
         <li>
-          <router-link :to="{path: '/reg'}">注册</router-link>
+          <router-link :to="{path: '/register'}">注册</router-link>
         </li>
       </ul>
       <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
@@ -107,6 +107,8 @@ export default {
           requestAnimationFrame(() => {
             this.$refs.observer.reset()
           })
+          this.$store.commit('setUserInfo', res.data)
+          this.$router.push({ path: '/' })
         } else if (res.code === 401) {
           this.$refs.codeField.setErrors([res.msg])
         } else {

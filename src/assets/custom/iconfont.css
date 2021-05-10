@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "iconwyuan"; /* Project id 2536931 */
+  src: url('iconfont.woff2?t=1620608685915') format('woff2'),
+       url('iconfont.woff?t=1620608685915') format('woff'),
+       url('iconfont.ttf?t=1620608685915') format('truetype');
+}
+
+.iconwyuan {
+  font-family: "iconwyuan" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home:before {
+  content: "\e7c7";
+}
+
+.icon-documentfull:before {
+  content: "\e70c";
+}
+
+.icon-document:before {
+  content: "\e6e6";
+}
+
+.icon-home1:before {
+  content: "\e621";
+}
+
+.icon-user:before {
+  content: "\e623";
+}
+
+.icon-settings:before {
+  content: "\e6cb";
+}
+
+.icon-message:before {
+  content: "\e622";
+}
+
+.icon-settings1:before {
+  content: "\e679";
+}
+
+.icon-message1:before {
+  content: "\e635";
+}
+

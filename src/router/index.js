@@ -6,6 +6,7 @@ const Forget = () => import(/* webpackChunkName: 'Forget' */ '../views/Forget.vu
 const Home = () => import(/* webpackChunkName: 'Home' */ '../views/Home.vue')
 const Index = () => import(/* webpackChunkName: 'Index' */ '../views/channels/Index.vue')
 const Template1 = () => import(/* webpackChunkName: 'Template1' */ '../views/channels/Template1.vue')
+const Center = () => import(/* webpackChunkName: 'Center' */ '../views/Center.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -32,8 +33,8 @@ const routes = [
     component: Login
   },
   {
-    path: '/reg',
-    name: 'Reg',
+    path: '/register',
+    name: 'Register',
     component: Reg,
     beforeEnter: (to, from, next) => {
       if (from.path === '/login') {
@@ -47,6 +48,11 @@ const routes = [
     path: '/forget',
     name: 'Forget',
     component: Forget
+  },
+  {
+    path: '/center',
+    name: 'Center',
+    component: Center
   }
 ]
 
