@@ -7,6 +7,12 @@ const Home = () => import(/* webpackChunkName: 'Home' */ '../views/Home.vue')
 const Index = () => import(/* webpackChunkName: 'Index' */ '../views/channels/Index.vue')
 const Template1 = () => import(/* webpackChunkName: 'Template1' */ '../views/channels/Template1.vue')
 const Center = () => import(/* webpackChunkName: 'Center' */ '../views/Center.vue')
+const userCenter = () => import(/* webpackChunkName: 'userCenter' */ '../components/user/Center.vue')
+const userMsg = () => import(/* webpackChunkName: 'userMsg' */ '../components/user/Msg.vue')
+const userOther = () => import(/* webpackChunkName: 'userOther' */ '../components/user/Others.vue')
+const userPost = () => import(/* webpackChunkName: 'userPost' */ '../components/user/Posts.vue')
+const userSetting = () => import(/* webpackChunkName: 'userSetting' */ '../components/user/Settings.vue')
+const user = () => import(/* webpackChunkName: 'user' */ '../views/User.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -50,9 +56,42 @@ const routes = [
     component: Forget
   },
   {
+    path: '/user/',
+    name: 'user',
+    component: user
+  },
+  {
     path: '/center',
     name: 'Center',
-    component: Center
+    component: Center,
+    linkActiveClass: 'layui-this',
+    children: [
+      {
+        path: '',
+        name: 'userCenter',
+        component: userCenter
+      },
+      {
+        path: 'user-msg',
+        name: 'userMsg',
+        component: userMsg
+      },
+      {
+        path: 'user-other',
+        name: 'userOther',
+        component: userOther
+      },
+      {
+        path: 'user-post',
+        name: 'userPost',
+        component: userPost
+      },
+      {
+        path: 'user-setting',
+        name: 'userSetting',
+        component: userSetting
+      }
+    ]
   }
 ]
 
