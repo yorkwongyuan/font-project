@@ -141,15 +141,7 @@ export default {
     }
   }
 }
-.panel {
-  border-radius: 2px;
-  background-color: #fff;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.02);
-  transition: all .2s;
-  &.main{
-    margin: 0 0 10px 225px;
-  }
-}
+
 .msg {
   background-color: #f8f8f8;
   color: #666;

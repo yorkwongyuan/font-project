@@ -14,6 +14,13 @@ const userPost = () => import(/* webpackChunkName: 'userPost' */ '../components/
 const userSetting = () => import(/* webpackChunkName: 'userSetting' */ '../components/user/Settings.vue')
 const user = () => import(/* webpackChunkName: 'user' */ '../views/User.vue')
 Vue.use(VueRouter)
+const MyInfo = () => import(/* webpackChunkName: 'MyInfo' */ '../components/user/common/MyInfo.vue')
+const Account = () => import(/* webpackChunkName: 'Account' */ '../components/user/common/Account.vue')
+const Password = () => import(/* webpackChunkName: 'Password' */ '../components/user/common/Password.vue')
+const PicUpload = () => import(/* webpackChunkName: 'PicUpload' */ '../components/user/common/PicUpload.vue')
+const MyPost = () => import(/* webpackChunkName: 'MyPost' */ '../components/user/common/MyPost.vue')
+const MyCollection = () => import(/* webpackChunkName: 'MyCollection' */ '../components/user/common/MyCollection.vue')
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -84,12 +91,41 @@ const routes = [
       {
         path: 'user-post',
         name: 'userPost',
-        component: userPost
+        component: userPost,
+        children: [{
+          path: '',
+          name: 'MyPost',
+          component: MyPost
+        }, {
+          path: 'my-collection',
+          name: 'MyCollection',
+          component: MyCollection
+        }]
       },
       {
         path: 'user-setting',
         name: 'userSetting',
-        component: userSetting
+        component: userSetting,
+        children: [{
+          path: '',
+          name: 'info',
+          component: MyInfo
+        },
+        {
+          path: 'account',
+          name: 'account',
+          component: Account
+        },
+        {
+          path: 'password',
+          name: 'password',
+          component: Password
+        },
+        {
+          path: 'pic-upload',
+          name: 'picUpload',
+          component: PicUpload
+        }]
       }
     ]
   }

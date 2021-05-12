@@ -38,4 +38,35 @@ export default {
 .gray {
   color: #999
 }
+.pl10 {
+  padding-left: 10px;
+}
+.text-right{
+  text-align:right;
+}
+.pr0{
+  padding-right: 0;
+}
+.panel {
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.02);
+  transition: all .2s;
+  &.main{
+    margin: 0 0 10px 225px;
+  }
+}
+.fly-panel{
+  padding: 20px;
+}
+.fly-panel-user{
+  padding-top: 5px;
+}
+
+@for $i from 0 through 5 {
+  .pd#{$i} {
+    padding: $i * 10 + px
+  }
+}
+
 </style>

@@ -1,0 +1,42 @@
+$spacers: (6: 60px, 7: 70px) !default;
+$utils: () !default;
+$spacer: 8px;
+$spacers: map-merge($map1: 
+  (
+    0: 0,
+    1: 1 * $spacer,
+    2: 2 * $spacer,
+    3: 3 * $spacer,
+    4: 4 * $spacer,
+    5: 5 * $spacer,
+  ),
+    $map2: $spacers
+  );
+
+  $utils: map-merge($map1: (
+    px: (
+      property: padding-left padding-right,
+      values: $spacers
+    ),
+    p: (
+      property: padding,
+      values: $spacers
+    )
+  ), $map2: $utils);
+  @each $key, $value in $utils {
+    @debug $key; // p, px之类
+    $values: map-get($map: $value, $key: values);
+    // 数据的键值对
+    // @debug $values;
+    @each $item-key, $item-value in $values {
+      // @debug $item-key; // 0, 1, 2之类
+      // @debug $item-value; // 1px, 2px之类
+      $properties: map-get($map: $value, $key: property);
+      // @debug $properties; // padding之类
+      .#{$key}-#{$item-key} {
+        @each $property in $properties {
+          #{$property}: $item-value
+        }
+      }
+    }
+  }

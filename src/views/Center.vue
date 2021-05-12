@@ -2,7 +2,7 @@
   <div class="layui-container fly-marginTop fly-user-main">
     <ul class="layui-nav layui-nav-tree" lay-filter="test">
       <li class="layui-nav-item" v-for="(list, index) in lists" :key="index + 'center'">
-        <router-link :to="{path: list.path}">
+        <router-link :to="{path: list.path}" :active-class="list.activeClass">
           <i class="layui-icon" :class="list.icon"></i>
           {{list.name}}
         </router-link>
@@ -27,11 +27,13 @@ export default {
       }, {
         name: '基本设置',
         icon: 'layui-icon-set',
-        path: '/center/user-setting'
+        path: '/center/user-setting',
+        activeClass: 'layui-this'
       }, {
         name: '我的帖子',
         icon: 'layui-icon-form',
-        path: '/center/user-post'
+        path: '/center/user-post',
+        activeClass: 'layui-this'
       }, {
         name: '我的消息',
         icon: 'layui-icon-reply-fill',
