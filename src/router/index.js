@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index'
+import jwt from 'jsonwebtoken'
+import moment from 'moment'
 const Login = () => import(/* webpackChunkName: 'Login' */ '../views/Login.vue')
 const Reg = () => import(/* webpackChunkName: 'Reg' */ '../views/Reg.vue')
 const Forget = () => import(/* webpackChunkName: 'Forget' */ '../views/Forget.vue')
@@ -25,7 +28,6 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
     component: Home,
     children: [
       {
@@ -69,7 +71,7 @@ const routes = [
   },
   {
     path: '/center',
-    name: 'Center',
+    meta: { isRequireAuth: true },
     component: Center,
     linkActiveClass: 'layui-this',
     children: [
@@ -90,7 +92,6 @@ const routes = [
       },
       {
         path: 'user-post',
-        name: 'userPost',
         component: userPost,
         children: [{
           path: '',
@@ -104,7 +105,6 @@ const routes = [
       },
       {
         path: 'user-setting',
-        name: 'userSetting',
         component: userSetting,
         children: [{
           path: '',
@@ -135,5 +135,37 @@ const router = new VueRouter({
   linkExactActiveClass: 'layui-this',
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  // 先把登录状态确认清楚
+  const token = localStorage.getItem('token')
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  if (token !== '' && token !== null) {
+    const res = jwt.decode(token)
+    console.log('res', res)
+    // token是否没过期
+    const isTokenAvailable = moment().isBefore(moment(res.exp * 1000))
+    console.log('isTokenAvailable', isTokenAvailable)
+    if (isTokenAvailable) {
+      store.commit('setToken', token)
+      store.commit('setUserInfo', userInfo)
+      store.commit('setIsLogin', true)
+    } else {
+      localStorage.clear()
+    }
+  }
+  /**
+   * 检查进入的页面是否需要鉴权, 注意, /login不在鉴权范围内,
+   * 因而不会出现反复进入/login的死循环
+   */
+  if (to.matched.some(record => record.meta.isRequireAuth)) {
+    if (store.state.isLogin) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    // 不需要校验的公共页面
+    next()
+  }
+})
 export default router

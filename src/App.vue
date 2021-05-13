@@ -41,11 +41,17 @@ export default {
 .pl10 {
   padding-left: 10px;
 }
+.pull-right{
+  float:right;
+}
 .text-right{
   text-align:right;
 }
 .pr0{
   padding-right: 0;
+}
+.orange {
+  color: #ff5722;
 }
 .panel {
   border-radius: 2px;

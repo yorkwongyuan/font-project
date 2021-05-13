@@ -22,12 +22,12 @@
               <li class="layui-col-sm3 layui-col-xs4">
                 <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>修改信息</span>
                 </a>
               </li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>修改头像</span>
                 </a></li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
@@ -35,87 +35,47 @@
                 </a></li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>账号绑定</span>
                 </a></li>
             </ul>
             <ul class="layui-row layui-col-space10">
               <li class="layui-col-sm3 layui-col-xs4">
                 <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>发表新帖</span>
                 </a>
               </li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>查看分享</span>
                 </a></li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>我的帖子</span>
                 </a></li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>我的收藏</span>
                 </a></li>
             </ul>
             <ul class="layui-row layui-col-space10">
               <li class="layui-col-sm3 layui-col-xs4">
                 <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>其他资料</span>
                 </a>
               </li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>关注公众号</span>
                 </a></li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>文档</span>
                 </a></li>
               <li class="layui-col-sm3 layui-col-xs4"> <a href="">
                   <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a></li>
-            </ul>
-            <ul class="layui-row layui-col-space10">
-              <li class="layui-col-sm3 layui-col-xs4">
-                <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a>
-              </li>
-              <li class="layui-col-sm3 layui-col-xs4"> <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a></li>
-              <li class="layui-col-sm3 layui-col-xs4"> <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a></li>
-              <li class="layui-col-sm3 layui-col-xs4"> <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a></li>
-            </ul>
-            <ul class="layui-row layui-col-space10">
-              <li class="layui-col-sm3 layui-col-xs4">
-                <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a>
-              </li>
-              <li class="layui-col-sm3 layui-col-xs4"> <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a></li>
-              <li class="layui-col-sm3 layui-col-xs4"> <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
-                </a></li>
-              <li class="layui-col-sm3 layui-col-xs4"> <a href="">
-                  <div class="layui-icon layui-icon-set shortcut"></div>
-                  <span>修改密码</span>
+                  <span>后台管理</span>
                 </a></li>
             </ul>
           </div>

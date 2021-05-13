@@ -69,3 +69,11 @@
 .p-7 {
   padding: 70px;
 }
+
+.pl-0 {
+  padding-left: 1px;
+}
+
+.pl-1 {
+  padding-left: 2px;
+}

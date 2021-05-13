@@ -1,5 +1,8 @@
 $spacers: (6: 60px, 7: 70px) !default;
-$utils: () !default;
+$utils: (pl: (
+  property: padding-left,
+  values: (0: 1px, 1: 2px)
+)) !default;
 $spacer: 8px;
 $spacers: map-merge($map1: 
   (

@@ -108,6 +108,8 @@ export default {
             this.$refs.observer.reset()
           })
           this.$store.commit('setUserInfo', res.data)
+          this.$store.commit('setIsLogin', true)
+          this.$store.commit('setToken', res.token)
           this.$router.push({ path: '/' })
         } else if (res.code === 401) {
           this.$refs.codeField.setErrors([res.msg])
