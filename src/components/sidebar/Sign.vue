@@ -5,18 +5,20 @@
       <i class="fly-mid"></i>
       <a href="javascript:;" class="fly-link" id="LAY_signinHelp" @click="showModel">说明</a>
       <i class="fly-mid"></i>
-      <a href="javascript:;" class="fly-link" id="LAY_signinTop">活跃榜<span class="layui-badge-dot"></span></a>
-      <span class="fly-signin-days">已连续签到<cite>16</cite>天</span>
+      <a href="javascript:;" class="fly-link" id="LAY_signinTop" @click="showTopList">活跃榜<span class="layui-badge-dot"></span></a>
+      <span class="fly-signin-days">已连续签到<cite>{{count}}</cite>天</span>
     </div>
     <div class="fly-panel-main fly-signin-main">
-      <button class="layui-btn layui-btn-danger" id="LAY_signin">今日签到</button>
-      <span>可获得<cite>6</cite>飞吻</span>
-
+      <!-- 未签到的状态 -->
+      <template v-if="!isSign">
+        <button class="layui-btn layui-btn-danger" id="LAY_signin" @click="sign()">今日签到</button>
+        <span>可获得<cite>{{favs}}</cite>飞吻</span>
+      </template>
       <!-- 已签到状态 -->
-      <!--
-      <button class="layui-btn layui-btn-disabled">今日已签到</button>
-      <span>获得了<cite>20</cite>飞吻</span>
-      -->
+      <template v-else>
+        <button class="layui-btn layui-btn-disabled">今日已签到</button>
+        <span>获得了<cite>{{favs}}</cite>飞吻</span>
+      </template>
     </div>
     <div class="modal" v-show="isShowModal">
       <div class="mask" @click="close"></div>
@@ -72,22 +74,80 @@
         </div>
       </div>
     </div>
+   <!--  -->
   </div>
 </template>
 <script>
+import { userSign } from '@/api/user.js'
 export default {
   name: 'Sign',
   data () {
     return {
-      isShowModal: false
+      isShowModal: false,
+      isShowTopList: false,
+      lists: [{ name: 'xxx', count: 12, created: '2021-3-12' }, { name: 'xxx', count: 12, created: '2021-3-12' }],
+      current: 0,
+      isSign: this.$store.state.userInfo && this.$store.state.userInfo.isSign
+    }
+  },
+  computed: {
+    favs () {
+      let fav = 0
+      if (this.count < 5) {
+        fav = 5
+      } else if (this.count >= 5 && this.count < 15) {
+        fav = 10
+      } else if (this.count >= 15 && this.count < 30) {
+        fav = 15
+      } else if (this.count >= 30 && this.count < 100) {
+        fav = 20
+      } else if (this.count >= 100 && this.count < 365) {
+        fav = 30
+      } else if (this.count >= 365) {
+        fav = 50
+      }
+      return fav
+    },
+    count () {
+      if (this.$store.state.userInfo) {
+        if (typeof this.$store.state.userInfo.count !== 'undefined') {
+          return this.$store.state.userInfo.count
+        } else {
+          return 0
+        }
+      } else {
+        return 0
+      }
     }
   },
   methods: {
+    selectTab (index) {
+      this.current = index
+    },
     showModel () {
       this.isShowModal = true
     },
+    showTopList () {
+      this.isShowTopList = true
+    },
     close () {
       this.isShowModal = false
+    },
+    closeTopList () {
+      this.isShowTopList = false
+    },
+    sign () {
+      userSign().then(res => {
+        if (res.code === 200) {
+          const user = this.$store.state.userInfo
+          user.favs = res.favs
+          user.count = res.count
+          console.log('sign -> user', user)
+          this.$store.commit('setUserInfo', user)
+        } else {
+          this.$alert('您已经签到了')
+        }
+      })
     }
   }
 }
@@ -138,6 +198,23 @@ export default {
   }
   .layui-layer-content {
     padding: 20px;
+  }
+  .layui-tab-content {
+    padding: 0 10px;
+  }
+  .layui-tab-item{
+    line-height: 45px;
+    li {
+      border-bottom: 1px dotted #dcdcdc;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 2px;
+    }
   }
 }
 </style>

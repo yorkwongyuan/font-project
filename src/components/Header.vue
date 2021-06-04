@@ -83,13 +83,14 @@ export default {
       }, 500)
     },
     logout () {
+      console.log('logout')
       this.$confirm('确定退出登录吗?', () => {
         console.log('commit')
         this.$store.commit('setUserInfo', null)
         this.$store.commit('setIsLogin', false)
         this.$store.commit('setToken', null)
         localStorage.clear()
-        this.$router.push({ path: '/' })
+        this.$router.push({ path: '/login' })
       })
     }
   },

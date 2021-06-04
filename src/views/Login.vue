@@ -89,6 +89,7 @@ export default {
   },
   methods: {
     _getCode () {
+      console.log('_getCode')
       getCode(this.sid).then(res => {
         if (res.code === 200) {
           this.svg = res.message
@@ -129,14 +130,17 @@ export default {
     // 设置sid
     setSid () {
       let sid
+      console.log(localStorage.getItem('sid'), "localStorage.getItem('sid')")
       if (localStorage.getItem('sid')) {
         sid = localStorage.getItem('sid')
       } else {
         sid = uuid()
-        sid = localStorage.setItem('sid', sid)
+        console.log('setSid -> sid好的', sid)
+        localStorage.setItem('sid', sid)
       }
       this.$store.commit('setSid', sid)
       this.sid = sid
+      console.log('setSid -> this.sid', this.sid)
     }
   },
   components: {
