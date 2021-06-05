@@ -101,6 +101,7 @@ export default {
       if (!isValid) return
       login({ username: this.username, password: this.password, sid: this.sid, code: this.code }).then(res => {
         if (res.code === 200) {
+          res.data.username = this.username // 后端屏蔽了该用户名,所以需要前端自己拼上
           console.log('登录成功')
           this.username = ''
           this.password = ''
@@ -115,14 +116,14 @@ export default {
         } else if (res.code === 401) {
           this.$refs.codeField.setErrors([res.msg])
         } else {
-          this.$alert('错误了')
+          this.$pop('shake', '错误了')
         }
       }).catch(err => {
         const data = err.response.data
         if (data.code === 500) {
-          this.$alert('用户名账号密码校验失败')
+          this.$pop('shake', '用户名账号密码校验失败')
         } else {
-          this.$alert('服务器错误')
+          this.$pop('shake', '服务器错误')
         }
         console.log(err.response, 'error')
       })

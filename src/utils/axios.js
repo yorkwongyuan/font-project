@@ -1,5 +1,7 @@
 import axios from 'axios'
 import errorHandler from './errorHandler'
+import store from '@/store'
+import publicConfig from '@/config/index'
 const CancelToken = axios.CancelToken
 class HttpRequest {
   constructor (baseURL) {
@@ -32,6 +34,18 @@ class HttpRequest {
   interceptors (instance) {
     // 请求拦截器
     instance.interceptors.request.use((config) => {
+      const publicPath = publicConfig.publicPath
+      console.log('HttpRequest -> interceptors -> publicPath', publicPath)
+      let isPublic = false
+      // 如果isPublic一旦为true,则后续其他的都为true
+      publicPath.forEach(path => {
+        isPublic = isPublic || path.test(config.url)
+      })
+      // 带上token
+      const token = `Bearer ${store.state.token}`
+      if (!isPublic && token) {
+        config.headers.Authorization = token
+      }
       const key = config.url + '&' + config.method
       // console.log('HttpRequest -> interceptors -> key', key)
       this.removePendding(key, true)

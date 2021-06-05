@@ -23,6 +23,7 @@ const Password = () => import(/* webpackChunkName: 'Password' */ '../components/
 const PicUpload = () => import(/* webpackChunkName: 'PicUpload' */ '../components/user/common/PicUpload.vue')
 const MyPost = () => import(/* webpackChunkName: 'MyPost' */ '../components/user/common/MyPost.vue')
 const MyCollection = () => import(/* webpackChunkName: 'MyCollection' */ '../components/user/common/MyCollection.vue')
+const NoFound = () => import(/* webpackChunkName: 'NoFound' */ '../views/NoFound.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -41,6 +42,15 @@ const routes = [
         component: Template1
       }
     ]
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/404',
+    name: 'NoFound',
+    component: NoFound
   },
   {
     path: '/login',
@@ -141,7 +151,6 @@ router.beforeEach((to, from, next) => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
   if (token !== '' && token !== null) {
     const res = jwt.decode(token)
-    console.log('res', res)
     // token是否没过期
     const isTokenAvailable = moment().isBefore(moment(res.exp * 1000))
     console.log('isTokenAvailable', isTokenAvailable)

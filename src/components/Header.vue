@@ -9,7 +9,8 @@
         <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
       </li>
       <li class="layui-nav-item">
-        <a href="case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
+        <!-- <a href="case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a> -->
+        <router-link :to="{path: '/123123123'}"><i class="iconfont icon-iconmingxinganli"></i>案例</router-link>
       </li>
       <li class="layui-nav-item">
         <a href="/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
@@ -45,7 +46,11 @@
             <img :src="baseUrl + userInfo.pic" >
           </a>
           <dl class="layui-nav-child layui-anim-scale" :class="{'layui-show': isShow}">
-            <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <dd>
+              <router-link :to="{path: '/center/user-setting'}">
+                <i class="layui-icon">&#xe620;</i>基本设置
+              </router-link>
+            </dd>
             <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
             <dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
             <hr style="margin: 5px 0;">
@@ -90,7 +95,7 @@ export default {
         this.$store.commit('setIsLogin', false)
         this.$store.commit('setToken', null)
         localStorage.clear()
-        this.$router.push({ path: '/login' })
+        this.$router.push({ path: '/' }, () => {})
       })
     }
   },

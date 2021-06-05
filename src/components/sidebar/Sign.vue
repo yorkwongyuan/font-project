@@ -6,7 +6,7 @@
       <a href="javascript:;" class="fly-link" id="LAY_signinHelp" @click="showModel">说明</a>
       <i class="fly-mid"></i>
       <a href="javascript:;" class="fly-link" id="LAY_signinTop" @click="showTopList">活跃榜<span class="layui-badge-dot"></span></a>
-      <span class="fly-signin-days">已连续签到<cite>{{count}}</cite>天</span>
+      <span class="fly-signin-days" v-if="isLogin || isSign">已连续签到<cite>{{count}}</cite>天</span>
     </div>
     <div class="fly-panel-main fly-signin-main">
       <!-- 未签到的状态 -->
@@ -79,6 +79,7 @@
 </template>
 <script>
 import { userSign } from '@/api/user.js'
+import moment from 'dayjs'
 export default {
   name: 'Sign',
   data () {
@@ -87,10 +88,13 @@ export default {
       isShowTopList: false,
       lists: [{ name: 'xxx', count: 12, created: '2021-3-12' }, { name: 'xxx', count: 12, created: '2021-3-12' }],
       current: 0,
-      isSign: this.$store.state.userInfo && this.$store.state.userInfo.isSign
+      isSign: false
     }
   },
   computed: {
+    isLogin () {
+      return this.$store.state.isLogin
+    },
     favs () {
       let fav = 0
       if (this.count < 5) {
@@ -137,18 +141,48 @@ export default {
       this.isShowTopList = false
     },
     sign () {
+      console.log(this.isLogin, 'this.isLogin')
+      if (!this.isLogin) {
+        this.$alert('请先登录!')
+        return
+      }
       userSign().then(res => {
+        const user = this.$store.state.userInfo
         if (res.code === 200) {
-          const user = this.$store.state.userInfo
           user.favs = res.favs
           user.count = res.count
           console.log('sign -> user', user)
-          this.$store.commit('setUserInfo', user)
+          console.log(this.$store.state.userInfo, 'userInfo')
+          this.$pop('', '签到成功')
         } else {
-          this.$alert('您已经签到了')
+          this.$pop('shake', '您已经签到了')
         }
+        user.isSign = true
+        user.lastSign = res.lastSign
+        this.isSign = true
+        this.$store.commit('setUserInfo', user)
       })
     }
+  },
+  mounted () {
+    const userInfo = this.$store.state.userInfo
+    const lastSign = userInfo && userInfo.lastSign
+    const isSign = userInfo && userInfo.isSign
+    const nowDate = moment().format('YYYY-MM-DD')
+    const lastDate = moment(lastSign).format('YYYY-MM-DD')
+    const diff = moment(nowDate).diff(moment(lastDate), 'day')
+    console.log('mounted -> lastSign', lastSign)
+    console.log('mounted -> isSign', isSign)
+    console.log('mounted -> nowDate', nowDate)
+    console.log('mounted -> lastDate', lastDate)
+    console.log('mounted -> diff', diff)
+    // 如果前端状态为已经签到 && 实际上上次签到是昨天了
+    if (diff > 0 && isSign) {
+      this.isSign = false
+    } else {
+      this.isSign = isSign
+    }
+    console.log('mounted -> lastSign', lastSign)
   }
 }
 </script>
