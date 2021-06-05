@@ -102,7 +102,6 @@ export default {
       login({ username: this.username, password: this.password, sid: this.sid, code: this.code }).then(res => {
         if (res.code === 200) {
           res.data.username = this.username // 后端屏蔽了该用户名,所以需要前端自己拼上
-          console.log('登录成功')
           this.username = ''
           this.password = ''
           this.code = ''
