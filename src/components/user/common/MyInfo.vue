@@ -86,7 +86,12 @@ export default {
         params[key] = this[key]
       })
       updateUserInfo(params).then(res => {
-        console.log('submit -> res', res)
+        if (res.code === 200) {
+          this.$pop('', res.msg)
+          this.$store.commit('setUserInfo', res.data)
+        } else {
+          this.$pop('shake', res.msg)
+        }
       })
     }
   },

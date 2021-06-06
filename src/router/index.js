@@ -24,6 +24,8 @@ const PicUpload = () => import(/* webpackChunkName: 'PicUpload' */ '../component
 const MyPost = () => import(/* webpackChunkName: 'MyPost' */ '../components/user/common/MyPost.vue')
 const MyCollection = () => import(/* webpackChunkName: 'MyCollection' */ '../components/user/common/MyCollection.vue')
 const NoFound = () => import(/* webpackChunkName: 'NoFound' */ '../views/NoFound.vue')
+const Reset = () => import(/* webpackChunkName: 'Reset' */ '../views/Reset.vue')
+const Confirm = () => import(/* webpackChunkName: 'Confirm' */ '../views/Confirm.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,6 +58,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/confirm',
+    name: 'Confirm',
+    component: Confirm
+  },
+  {
+    path: '/reset',
+    name: 'Reset',
+    component: Reset
   },
   {
     path: '/register',
