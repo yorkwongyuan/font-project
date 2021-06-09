@@ -26,6 +26,7 @@ const MyCollection = () => import(/* webpackChunkName: 'MyCollection' */ '../com
 const NoFound = () => import(/* webpackChunkName: 'NoFound' */ '../views/NoFound.vue')
 const Reset = () => import(/* webpackChunkName: 'Reset' */ '../views/Reset.vue')
 const Confirm = () => import(/* webpackChunkName: 'Confirm' */ '../views/Confirm.vue')
+const Add = () => import(/* webpackChunkName: 'Add' */ '../components/content/Add.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -90,6 +91,11 @@ const routes = [
     path: '/user/',
     name: 'user',
     component: user
+  },
+  {
+    path: '/add',
+    name: 'user',
+    component: Add
   },
   {
     path: '/center',

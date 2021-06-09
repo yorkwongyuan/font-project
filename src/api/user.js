@@ -10,8 +10,13 @@ const updateUserInfo = async (data) => axios.post('/user/basic', data)
 // 更新用户名接口
 const updateUserName = async (data) => axios.get(`/public/reset-email/?${qs.stringify(data)}`, data)
 
+const changePwd = async (params) => {
+  return axios.post('/user/change-password', { ...params })
+}
 export {
   userSign,
   updateUserInfo,
-  updateUserName
+  updateUserName,
+  changePwd
+
 }

@@ -33,4 +33,10 @@ const getTop = async () => {
   return axios.get('/public/topWeek')
 }
 
-export { getLists, getTips, getLinks, getTop }
+/**
+ * @param {Blob} options
+ */
+
+const uploadImg = (formData) => axios.post('/content/uploadImg', formData)
+
+export { getLists, getTips, getLinks, getTop, uploadImg }

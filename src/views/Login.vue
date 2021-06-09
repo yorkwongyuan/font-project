@@ -115,7 +115,7 @@ export default {
         } else if (res.code === 401) {
           this.$refs.codeField.setErrors([res.msg])
         } else {
-          this.$pop('shake', '错误了')
+          this.$pop('shake', res.msg)
         }
       }).catch(err => {
         const data = err.response.data
